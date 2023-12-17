@@ -1,5 +1,6 @@
 server:
   port: 9001
+  shutdown: graceful
   tomcat:
     connection-timeout: 2s
     keep-alive-timeout: 15s
@@ -10,6 +11,8 @@ server:
 spring:
   application:
     name: catalog-service
+  lifecycle:
+    timeout-per-shutdown-phase: 15s
   config:
     import: "optional:configserver:"
   cloud:
@@ -28,9 +31,8 @@ spring:
     password: password
     url: jdbc:postgresql://localhost:5432/polardb_catalog
     hikari:
-      connection-timeout: 2000
+      connection-timeout: 2000 #ms
       maximum-pool-size: 5
-
 
 management:
   endpoints:
@@ -38,7 +40,5 @@ management:
       exposure:
         include: refresh
 
-
 polar:
   greeting: Welcome to the local book catalog!
-
